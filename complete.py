@@ -15,10 +15,10 @@ camera.resolution = (1920, 1080)    #Define the resolution we want the video to 
 isRecording = 0                     # Maintains state of recording operation
 close_length = 5                    # Record for <n> seconds after closing door
 
-upload_server = '192.168.43.147'                                # Define the server to upload to
-upload_user = 'root'                                                    # Define a non-root user to log in as
+upload_server = '192.168.43.147'                # Define the server to upload to
+upload_user = 'root'                            # Define a non-root user to log in as
 privkey_location = '/home/pi/Desktop/id_rsa'    # Add full path to private key for passwordless logon
-upload_destination = '/root/video'                              # Add upload destination on remote server
+upload_destination = '/root/video'              # Add upload destination on remote server
 upload_path = upload_user + '@' + upload_server + ':' + upload_destination
 
 def record_video():
