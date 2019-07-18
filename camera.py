@@ -11,15 +11,15 @@ import platform
 button = Button(4)
 camera = PiCamera()
 
-device_name = platform.node()         #Define a friendly device name to easily identify video
+device_name = platform.node()       #Define a friendly device name to easily identify video
 record_time = 5                     #Define the number of seconds we want to record
 camera.resolution = (1920, 1080)    #Define the resolution we want the video to be at
 log_file = '/home/pi/' + device_name + '.log'
 
-isRecording = 0                     # Maintains state of recording operation
+isRecording = 0                         # Maintains state of recording operation
 
-upload_server = '10.0.0.14'                # Define the server to upload to
-upload_user = 'administrator'                            # Define a non-root user to log in as
+upload_server = '10.0.0.14'             # Define the server to upload to
+upload_user = 'administrator'           # Define a non-root user to log in as
 privkey_location = '/home/pi/id_rsa'    # Add full path to private key for passwordless logon
 upload_destination = '/home/administrator/Videos/Door_Alarm_Videos/' + device_name + '/'           # Add upload destination on remote server
 upload_path = upload_user + '@' + upload_server + ':' + upload_destination
@@ -91,7 +91,7 @@ def upload_old():
             except Exception as error:
                 print("Error uploading old data.")
                 print("Error: " + str(error))
-                pass #was continue back one tab
+                pass
         else:
             continue
 
@@ -148,7 +148,7 @@ while True:
             except paramiko.SSHException:
                 print("Connection failed! Attempt to troubleshoot SSH.")
 
-            try:
+            try: # Re-establish an SSH connection in case last one failed.
                 ssh_upload.connect(upload_server, username = upload_user, pkey = key)
             except paramiko.SSHException:
                 print("Connection failed! Attempt to troubleshoot SSH.")
