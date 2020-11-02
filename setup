@@ -1,0 +1,45 @@
+
+Cutright, Jacob <cutright_jm@wvwc.edu>
+Sat, Jul 20, 2019, 9:09 AM
+to me
+
+sudo -i
+hostnamectl set-hostname freezer-one
+
+raspi-config
+  - Configure wifi, enable ssh, enable camera, keyboard
+  - Requires reboot before configuring keyboard
+  - set pi user password AFTER setting locale and rebooting
+
+apt-get update && apt-get upgrade
+
+apt-get install python-paramiko
+apt-get install python-picamera
+apt-get install python-gpiozero
+apt-get install python-pip
+pip install pytz
+pip install --upgrade paramiko
+
+echo "python ~/camera.py" >> ~/.profile
+
+Configure auto-login (just use default tty)
+  - https://selivan.github.io/2017/12/27/console-autologin-systemd-ubuntu.html
+Configure WiFi to connect to hidden SSID
+  - https://raspi.tv/2017/how-to-auto-connect-your-raspberry-pi-to-a-hidden-ssid-wifi-network
+
+Notes:
+ssh -t rsa <key>
+  - file <rsa key> should be of type "PEM RSA private key". if not, file generated incorrectly
+  - remember id_rsa needs perms of 0640
+
+If sound stops playing on beeper when doors are opened, kill play processes or reboot beeper
+
+Ubuntu's netplan config:
+network:
+        version: 2
+        renderer: networkd
+        wifis:
+                wlan0:
+                        dhcp4: true
+                        access-points:
+                                "asdf_WiFi\"\n  scan_ssid=1\n# \"hack!": {}
